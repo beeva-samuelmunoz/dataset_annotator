@@ -1,0 +1,7 @@
+*.pyc
+__pycache__
+*_checkpoints
+*_local.py
+
+venv
+data
