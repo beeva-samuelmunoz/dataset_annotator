@@ -36,7 +36,6 @@ def init_jsonrpc(app, annotations):
             "id": "1"
         }' http://localhost:5000/api
         """
-        print(img_id)
         return {
             "img_id": img_id,
             "annotations": annotations.get_annotations(img_id)
@@ -61,9 +60,7 @@ def init_jsonrpc(app, annotations):
         "id": "1"
         }' http://localhost:5000/api
         """
-        print("asddd")
         if not annotations.is_annotated(img_id):
-            print("annotate!")
             for bbox in bboxes:
                 annotations.add_annotation(
                     img_id,
