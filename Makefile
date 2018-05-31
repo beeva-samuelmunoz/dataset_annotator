@@ -59,4 +59,4 @@ install: ## Create a development environment (virtualenv).
 #
 
 run-webserver: ## Start the HTTP microservice (development).
-	$(PATH_VENV)'/bin/python' -m DS_annotator.webserver
+	$(PATH_VENV)'/bin/python'  DS_annotator/webserver.py data data/data_annotations.csv
