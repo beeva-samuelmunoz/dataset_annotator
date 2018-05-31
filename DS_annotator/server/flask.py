@@ -9,7 +9,7 @@ def init_flask(app, path_dir_imgs, path_file_out):
 
     @app.route('/')
     def main():
-        return render_template('bbox_annotator.html')
+        return render_template('annotator_bbox.html')
 
 
     @app.route('/static/<path:filename>')
