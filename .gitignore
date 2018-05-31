@@ -2,6 +2,7 @@
 __pycache__
 *_checkpoints
 *_local.py
+*.csv
 
 venv
 data
