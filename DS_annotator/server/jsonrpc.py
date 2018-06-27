@@ -63,11 +63,11 @@ def init_jsonrpc(app, annotations):
         if not annotations.is_annotated(img_id):
             for bbox in bboxes:
                 annotations.add_annotation(
-                    img_id,
-                    bbox['x'],
-                    bbox['y'],
-                    bbox['width'],
-                    bbox['height'],
+                    img_id=img_id,
+                    x=bbox['x'],
+                    y=bbox['y'],
+                    width=bbox['width'],
+                    height=bbox['height'],
                 )
             annotations.set_annotated(img_id)
         return 'OK'

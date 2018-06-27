@@ -44,7 +44,7 @@ class Annotations:
                     writer.writerow(bbox)
 
 
-    def add_annotation(self, img_id, x, y, height, width):
+    def add_annotation(self, img_id, x, y, width, height):
         """Add an annotation
         """
         self.bboxes.append({
