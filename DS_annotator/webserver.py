@@ -7,6 +7,7 @@ from threading import Timer
 
 from flask import Flask
 
+from DS_annotator import utils
 from DS_annotator.annotations import Annotations
 from DS_annotator.server.flask import init_flask
 from DS_annotator.server.jsonrpc import init_jsonrpc
@@ -19,32 +20,30 @@ def repeater(seconds, func):
 
 
 if __name__ == '__main__':
-
-    if len(sys.argv) != 3:  # Number of arguments correct
-        print("Usage: {} <path dataset> <path annotations CSV file>".format(sys.argv[0]))
-        exit(0)
-    path_dir_imgs = sys.argv[1]
-    path_file_out = sys.argv[2]
+    # Parse arguments
+    args = utils.get_args()
+    if not args.csv:
+        args.csv = os.path.join(args.path_imgs,"annotations.csv")
 
     # Dataset exists
-    if not os.path.isdir(path_dir_imgs):
-        print("ERROR: cannot find {}".format(path_dir_imgs))
+    if not os.path.isdir(args.path_imgs):
+        print("ERROR: cannot find {}".format(args.path_imgs))
         exit(0)
+    # Server info
+    print("Server info")
+    print("\tData directory: {}".format(os.path.abspath(args.path_imgs)))
+    print("\tAnnotations CSV file: {}".format(os.path.abspath(args.csv)))
+    print("\tServer Port: {}".format(args.port))
+    exit(0)
 
-    print("Data directory: {}".format(os.path.abspath(path_dir_imgs)))
-    print("Annotations file: {}".format(os.path.abspath(path_file_out)))
-
-
-
-    annotations = Annotations(path_dir_imgs, path_file_out)
+    annotations = Annotations(args.path_imgs, args.csv)
 
     # Save the CSV every 3 minutes.
     repeater(3*60, annotations.save)
 
     # set the project root directory as the static folder, you can set others.
     app = Flask(__name__, static_url_path='')
-    init_flask(app, path_dir_imgs, path_file_out)
+    init_flask(app, args.path_imgs, args.csv)
     init_jsonrpc(app, annotations)
 
-
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=args.port, debug=True)

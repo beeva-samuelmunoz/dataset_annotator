@@ -58,5 +58,5 @@ install: ## Create a development environment (virtualenv).
 ### Run things
 #
 
-run-webserver: ## Start the HTTP microservice (development).
-	$(PATH_VENV)'/bin/python'  DS_annotator/webserver.py data data/data_annotations.csv
+run-webserver: ## Start the HTTP server. Params path_imgs=<dir of images> port=<server port>
+	$(PATH_VENV)'/bin/python' DS_annotator/webserver.py $(path_imgs) --port=$(port)
