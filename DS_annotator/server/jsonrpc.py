@@ -71,3 +71,21 @@ def init_jsonrpc(app, annotations):
                 )
             annotations.set_annotated(img_id)
         return 'OK'
+
+
+    @jsonrpc.method('IMG.remove_image')
+    def remove_image(img_id):
+        """Remove image from the dataset.
+        """
+        """Test:
+        curl -i -X POST    -H "Content-Type: application/json; indent=4"    -d '{
+        "jsonrpc": "2.0",
+        "method": "IMG.remove_image",
+        "params": {
+          "img_id": "face.jpeg",
+        },
+        "id": "1"
+        }' http://localhost:5000/api
+        """
+        annotations.remove_image(img_id)
+        return 'OK'

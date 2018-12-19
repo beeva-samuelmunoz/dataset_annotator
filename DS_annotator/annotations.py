@@ -9,6 +9,7 @@ class Annotations:
 
     def __init__(self, imgs_dir, csv_path):
         # Attributes
+        self.imgs_dir = imgs_dir
         self.csv_path = csv_path  # Path to the csv file
         self.imgs_ids = set()  # Image paths under directory (relative)
         self.bboxes = []  # Annotations for the images. [ {path, x, y, width, height}, ... ]
@@ -83,4 +84,15 @@ class Annotations:
         try:
             self.imgs_ids_candidate.remove(img_id)
         except:
+            pass
+
+
+    def remove_image(self, img_id):
+        """Remove image from dataset & delete file.
+        """
+        try:
+            os.remove(os.path.join(self.imgs_dir, img_id))
+            self.set_annotated(img_id)
+        except Exception as e:
+            print(e)
             pass

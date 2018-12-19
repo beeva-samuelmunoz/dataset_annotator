@@ -59,6 +59,24 @@ function annotator_bbox(canvas, msg){
 		});
 	}
 
+	function rpc_remove_image(callback){
+		axios.post(url_api, {
+			jsonrpc: '2.0',
+			method: 'IMG.remove_image',
+			params: {
+				img_id: img_id,
+			},
+			id: 1
+		})
+		.then(function (response) {
+			// console.log(response);
+			callback();
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	}
+
 	function get_img(img_id, callback){
 		img = new Image();
 		img.onload = function(){
@@ -184,9 +202,21 @@ function annotator_bbox(canvas, msg){
 		}
 	}
 
+	function remove_image(){
+		console.log("FUNCTION: remove");
+		console.log("remove image: ");
+		console.log(img_id);
+		if (img_id!==null){
+			rpc_remove_image( function(){
+				skip();
+			});
+		}
+	}
+
 	return {
 		send: send,
 		reset: reset,
-		skip:	skip
+		skip:	skip,
+		remove_image: remove_image
 	}
 }

@@ -12,10 +12,11 @@
 <button id="btn_send">Send</button>
 <button id="btn_skip">Skip</button>
 <button id="btn_reset">Reset</button>
+<button id="btn_delete">Delete</button>
 
 
 <script src="/static/js/axios.min.js"></script>
-<script src="/static/js/bbox_annotator.js"></script>
+<script src="/static/js/annotator_bbox.js"></script>
 
 <script type="text/javascript">
 	var annotator = annotator_bbox(
@@ -27,6 +28,7 @@
 	document.getElementById("btn_send").addEventListener("click", annotator.send);
 	document.getElementById("btn_skip").addEventListener("click", annotator.skip);
 	document.getElementById("btn_reset").addEventListener("click", annotator.reset);
+	document.getElementById("btn_delete").addEventListener("click", annotator.remove_image);
 
 	annotator.skip();  // Start the annotation process
 </script>
