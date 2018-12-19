@@ -22,19 +22,21 @@ def repeater(seconds, func):
 if __name__ == '__main__':
     # Parse arguments
     args = utils.get_args()
-    if not args.csv:
-        args.csv = os.path.join(args.path_imgs,"annotations.csv")
-
-    # Dataset exists
+    # Dataset musts exist
     if not os.path.isdir(args.path_imgs):
         print("ERROR: cannot find {}".format(args.path_imgs))
         exit(0)
+    args.path_imgs = os.path.abspath(args.path_imgs)
+    # Default CSV file
+    if not args.csv:
+        args.csv = os.path.join(args.path_imgs,"annotations.csv")
+    args.csv = os.path.abspath(args.csv)
+
     # Server info
     print("Server info")
-    print("\tData directory: {}".format(os.path.abspath(args.path_imgs)))
-    print("\tAnnotations CSV file: {}".format(os.path.abspath(args.csv)))
+    print("\tData directory: {}".format(args.path_imgs))
+    print("\tAnnotations CSV file: {}".format(args.csv))
     print("\tServer Port: {}".format(args.port))
-    exit(0)
 
     annotations = Annotations(args.path_imgs, args.csv)
 
